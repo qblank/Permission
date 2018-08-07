@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.qblank.dao.SysUserMapper" >
-  <resultMap id="BaseResultMap" type="cn.qblank.model.SysUser" >
+<mapper namespace="cn.qblank.dao.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="cn.qblank.model.SysRole" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
-    <result column="mail" property="mail" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="operator" property="operator" jdbcType="VARCHAR" />
@@ -15,49 +12,37 @@
     <result column="operate_ip" property="operateIp" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, telephone, mail, password, dept_id, status, remark, operator, operate_time, 
-    operate_ip
+    id, name, type, status, remark, operator, operate_time, operate_ip
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from sys_user
+    from sys_role
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from sys_user
+    delete from sys_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.qblank.model.SysUser" >
-    insert into sys_user (id, username, telephone, 
-      mail, password, dept_id, 
+  <insert id="insert" parameterType="cn.qblank.model.SysRole" >
+    insert into sys_role (id, name, type, 
       status, remark, operator, 
       operate_time, operate_ip)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
-      #{mail,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
       #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.qblank.model.SysUser" >
-    insert into sys_user
+  <insert id="insertSelective" parameterType="cn.qblank.model.SysRole" >
+    insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="username != null" >
-        username,
+      <if test="name != null" >
+        name,
       </if>
-      <if test="telephone != null" >
-        telephone,
-      </if>
-      <if test="mail != null" >
-        mail,
-      </if>
-      <if test="password != null" >
-        password,
-      </if>
-      <if test="deptId != null" >
-        dept_id,
+      <if test="type != null" >
+        type,
       </if>
       <if test="status != null" >
         status,
@@ -79,20 +64,11 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="telephone != null" >
-        #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="mail != null" >
-        #{mail,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="deptId != null" >
-        #{deptId,jdbcType=INTEGER},
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -111,23 +87,14 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.qblank.model.SysUser" >
-    update sys_user
+  <update id="updateByPrimaryKeySelective" parameterType="cn.qblank.model.SysRole" >
+    update sys_role
     <set >
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="telephone != null" >
-        telephone = #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="mail != null" >
-        mail = #{mail,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="deptId != null" >
-        dept_id = #{deptId,jdbcType=INTEGER},
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -147,13 +114,10 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.qblank.model.SysUser" >
-    update sys_user
-    set username = #{username,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      mail = #{mail,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      dept_id = #{deptId,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="cn.qblank.model.SysRole" >
+    update sys_role
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=VARCHAR},
