@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * @author evan_qb
@@ -19,4 +20,6 @@ public class TestVo {
     @Min(value = 0,message = "最小值不能小于0")
     @Max(value = 10,message = "最大值不能超过10")
     private Integer id;
+
+    private List<String> str;
 }

@@ -1,12 +1,16 @@
 package cn.qblank.controller;
 
+import cn.qblank.common.ApplicationContextHelper;
 import cn.qblank.common.JsonData;
+import cn.qblank.dao.SysAclModuleMapper;
 import cn.qblank.exception.ParamException;
 import cn.qblank.exception.PermissionException;
+import cn.qblank.model.SysAclModule;
 import cn.qblank.model.SysUser;
 import cn.qblank.param.TestVo;
 import cn.qblank.service.SysUserService;
 import cn.qblank.util.BeanValidator;
+import cn.qblank.util.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +46,11 @@ public class TestController {
     @ResponseBody
     public JsonData validate(TestVo vo) throws ParamException{
         log.info("validate");
+        SysAclModuleMapper sysAclModuleMapper = ApplicationContextHelper.popBean(SysAclModuleMapper.class);
+        SysAclModule sysAclModule = sysAclModuleMapper.selectByPrimaryKey(1);
+        log.info(JsonMapper.object2String(sysAclModule));
         BeanValidator.check(vo);
-        return JsonData.success("test validate");
+        return JsonData.success(JsonMapper.object2String(sysAclModule));
     }
 
     @RequestMapping("/findUser")
