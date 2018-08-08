@@ -1,7 +1,13 @@
 target/
+
 out/
+
 .settings/
+
 .idea/
+
 .classpath
+
 .project
+
 .permission.iml

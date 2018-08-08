@@ -3,7 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:annotation-config />
     <!-- 启动注解驱动的spring mvc 功能 -->
@@ -23,6 +27,8 @@
     <mvc:resources location="/assets/" mapping="/assets/**"/>
     <mvc:resources location="/ztree/" mapping="/ztree/**"/>-->
     <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />-->
+    <!--引入自定义异常处理器-->
+    <bean class="cn.qblank.common.SpringExceptionResolver" />
 
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
 
@@ -32,9 +38,9 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           id="internalResourceViewResolver">
         <!-- 前缀 -->
-        <property name="prefix" value="/WEB-INF/ftl/" />
+        <property name="prefix" value="/WEB-INF/views/" />
         <!-- 后缀 -->
-        <property name="suffix" value=".ftl" />
+        <property name="suffix" value=".jsp" />
     </bean>
 
 </beans>
