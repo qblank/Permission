@@ -72,6 +72,8 @@ CREATE TABLE `sys_dept` (
 
 
  **权限相关Log表** 
+
+```
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -85,6 +87,8 @@ CREATE TABLE `sys_log` (
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '当前是否复原过，0：没有，1：复原过',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+```
+
 
 
  **角色表** 
