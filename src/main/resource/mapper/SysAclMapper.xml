@@ -41,7 +41,7 @@
       #{operator,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.qblank.model.SysAcl" >
+  <insert id="insertSelective" parameterType="cn.qblank.model.SysAcl" keyProperty="id" useGeneratedKeys="true">
     insert into sys_acl
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -174,4 +174,49 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="countByNameAndAclModuleId" parameterType="map" resultType="int">
+    select count(1)
+      from sys_acl
+    where name = #{name}
+    and acl_module_id = #{aclModuleId}
+    <if test=" id != null">
+      and id != #{id}
+    </if>
+  </select>
+
+  <select id="countByAclModuleId" parameterType="int" resultType="int">
+    select count(1)
+      from sys_acl
+    where acl_module_id = #{aclModuleId}
+  </select>
+
+  <select id="getPageByAclModuleId" parameterType="map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+      from sys_acl
+    where acl_module_id = #{aclModuleId}
+    order by seq asc, name asc
+    limit #{page.offset}, #{page.pageSize}
+  </select>
+
+  <select id="getAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from sys_acl
+  </select>
+
+  <select id="getByIdList" parameterType="map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from sys_acl
+    where id in
+    <foreach collection="idList" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </select>
+
+  <select id="getByUrl" parameterType="string" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from sys_acl
+    where url = #{url} <!-- url is not null and url != '' and #{url} REGEXP url -->
+  </select>
 </mapper>

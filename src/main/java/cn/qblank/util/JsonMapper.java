@@ -23,6 +23,12 @@ public class JsonMapper {
         objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_EMPTY);
     }
 
+    /**
+     * 对象转json
+     * @param src
+     * @param <T>
+     * @return
+     */
     public static <T> String object2String(T src){
         if (src == null){
             return null;
@@ -35,6 +41,13 @@ public class JsonMapper {
         }
     }
 
+    /**
+     * json转对象
+     * @param src
+     * @param tTypeReference
+     * @param <T>
+     * @return
+     */
     public static <T> T string2Object(String src, TypeReference tTypeReference){
         if (src == null || tTypeReference == null){
             return null;

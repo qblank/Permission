@@ -1,7 +1,17 @@
 package cn.qblank.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class SysDept {
     private Integer id;
 

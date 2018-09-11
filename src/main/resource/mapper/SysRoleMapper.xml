@@ -32,7 +32,7 @@
       #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
       #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.qblank.model.SysRole" >
+  <insert id="insertSelective" parameterType="cn.qblank.model.SysRole" keyProperty="id" useGeneratedKeys="true">
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -125,4 +125,30 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="countByName" parameterType="map" resultType="int">
+    select count(1)
+      from sys_role
+    where name = #{name}
+    <if test="id != null">
+      and id != #{id}
+    </if>
+    
+  </select>
+  
+  <select id="getAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+      from sys_role
+  </select>
+
+  <!--通过id集合查询-->
+  <select id="getByIdList" parameterType="map" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from sys_role
+    where id in
+    <foreach collection="idList" item="id" separator="," open="(" close=")">
+      #{id}
+    </foreach>
+  </select>
 </mapper>

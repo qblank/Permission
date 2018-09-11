@@ -11,16 +11,17 @@
                     http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
     <!--配置数据源路径-->
-    <!--<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
         <property name="locations">
             <list>
-                <value>classpath:/settings.properties</value>
+                <value>classpath:settings.properties</value>
             </list>
         </property>
-    </bean>-->
-    <context:property-placeholder location="classpath:/settings.properties" />
-
+    </bean>
+    <!--<context:property-placeholder location="classpath:/settings.properties" />-->
+    <!--引入redis.xml-->
+    <import resource="redis.xml" />
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="${db.driverClassName}" />
@@ -53,7 +54,7 @@
         <property name="mapperLocations" value="classpath:mapper/*.xml" />
     </bean>
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="cn.qblank.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>

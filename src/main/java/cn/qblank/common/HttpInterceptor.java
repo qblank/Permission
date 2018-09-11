@@ -68,9 +68,13 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
         long start = (long) request.getAttribute(START_TIME);
         long end = System.currentTimeMillis();
         log.info("request exception url:{},cost:{}ms",url,end - start);
+        removeThreadLocalInfo();
     }
 
+    /**
+     * 移除信息
+     */
     public void removeThreadLocalInfo(){
-        //RequestHolder.remove();
+        RequestHolder.remove();
     }
 }

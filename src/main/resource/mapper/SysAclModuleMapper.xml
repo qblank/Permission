@@ -36,7 +36,7 @@
       #{remark,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, 
       #{operateIp,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.qblank.model.SysAclModule" >
+  <insert id="insertSelective" parameterType="cn.qblank.model.SysAclModule" keyProperty="id" useGeneratedKeys="true">
     insert into sys_acl_module
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -149,4 +149,45 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--判断名字和parentId是否存在-->
+  <select id="countByNameAndParentId" parameterType="map" resultType="int">
+    select count(1)
+      from sys_acl_module
+    where name = #{name}
+    <if test="parentId != null">
+      and parent_id = #{parentId}
+    </if>
+    <if test="id != null">
+      and id != #{id} 
+    </if>
+  </select>
+
+  <!--通过level获取子类AclModule-->
+  <select id="getChildAclModuleListByLevel" resultMap="BaseResultMap">
+    select 
+      <include refid="Base_Column_List" />
+    from sys_acl_module
+    where level like #{level} || '.%'
+  </select>
+  
+  <update id="batchUpdateLevel" parameterType="map">
+    <foreach collection="sysAclModuleList" item="sysAclModule" separator=";">
+      update sys_acl_module
+        set level = #{sysAclModule.level}
+      where id = #{sysAclModule.id}
+    </foreach>
+  </update>
+
+  <select id="getAllAclModule" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_acl_module
+  </select>
+
+  <select id="countByParentId" parameterType="int" resultType="int">
+    select count(1)
+      from sys_acl_module
+    where parent_id = #{aclModuleId}
+  </select>
 </mapper>

@@ -41,6 +41,10 @@ public class JsonData {
         return jsonData;
     }
 
+    public static JsonData success() {
+        return new JsonData(true);
+    }
+
     /**
      * 失败
      * @param msg

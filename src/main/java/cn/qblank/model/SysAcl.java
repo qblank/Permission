@@ -1,7 +1,17 @@
 package cn.qblank.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+//id相同就表示类相同
+@EqualsAndHashCode(of = {"id"})
 public class SysAcl {
     private Integer id;
 

@@ -1,6 +1,9 @@
 package cn.qblank.dao;
 
 import cn.qblank.model.SysRole;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface SysRoleMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,11 @@ public interface SysRoleMapper {
     int updateByPrimaryKeySelective(SysRole record);
 
     int updateByPrimaryKey(SysRole record);
+
+    int countByName(@Param("name") String name,@Param("id") Integer id);
+
+    List<SysRole> getAll();
+
+    List<SysRole> getByIdList(@Param("idList") List<Integer> idList);
+
 }

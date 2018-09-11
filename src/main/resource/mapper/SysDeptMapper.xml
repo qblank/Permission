@@ -12,9 +12,11 @@
     <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
     <result column="operate_ip" property="operateIp" jdbcType="VARCHAR" />
   </resultMap>
+
   <sql id="Base_Column_List" >
     id, name, parent_id, level, seq, remark, operator, operate_time, operate_ip
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -35,7 +37,7 @@
       #{operator,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.qblank.model.SysDept" >
+  <insert id="insertSelective" parameterType="cn.qblank.model.SysDept" keyProperty="id" useGeneratedKeys="true">
     insert into sys_dept
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -138,4 +140,42 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--查询所有部门-->
+  <select id="getAllDept" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+      FROM sys_dept;
+  </select>
+  <!--获取子部门列表-->
+  <select id="getChildDeptListByLevel" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM sys_dept
+    WHERE level LIKE #{level} || '.%'
+  </select>
+  <!--批量更新-->
+  <update id="batchUpdateLevel" parameterType="map">
+    <foreach collection="sysDeptList" item="sysDept" separator=";">
+      UPDATE sys_dept
+        SET level = #{dept.level}
+      WHERE id = #{dept.id}
+    </foreach>
+  </update>
+  
+  <select id="countByNameAndParentId" parameterType="map" resultType="int">
+    SELECT COUNT(1)
+      FROM sys_dept
+    WHERE NAME = #{name}
+
+    <if test="parentId != null">
+      AND parent_id = #{parentId}
+    </if>
+    <if test="id != null">
+      AND id != #{id}
+    </if>
+  </select>
+  
+  <select id="countByParentId" parameterType="int" resultType="int">
+    select count(1)
+      from sys_dept
+    where parent_id = #{deptId}
+  </select>
 </mapper>
