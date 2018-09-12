@@ -167,12 +167,10 @@ CREATE TABLE `sys_user` (
 
 1. git clone 
 2. mvn install
+3.执行sql脚本，修改对应的数据库连接配置
 
 
 #### 使用说明
 
-1. 目前正在开发
+项目地址: http://39.107.242.6:8080/signin.jsp
 
-#### 参与贡献
-
-1. 创建主分支master
