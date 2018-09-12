@@ -173,4 +173,42 @@ CREATE TABLE `sys_user` (
 #### 使用说明
 
 项目地址: http://39.107.242.6:8080/signin.jsp
+账号: evan_qb@qq.com
+密码: 123456
 
+#### 技术栈
+    后台:
+        Spring Framework
+        SpringMVC
+        Mybatis
+        Druid数据库连接池
+        hibernate-validation校验框架
+        maven构建项目    
+        redis进行缓存
+        logback日志插件
+        generator通过数据库逆向工程生成mapper、service、以及实体类
+        lomback工具的builder对对象进行赋值
+    前台技术:
+        jquery
+        bootstrap
+        Mustache模板引擎渲染页面
+        jsp动态页面
+        ztree树形插件渲染结构树
+        Bootstrap-duallistbox多选插件维护角色与用户的关系
+
+#### 总结
+    1.学会自定义异常，并自定义异常处理器，用于捕获各类异常，并将信息返回给前端
+    2.自定义拦截器用于处理每次请求并打印日志
+    3.封装API工具类JsonData返回数据给前端
+    4.使用ThreadLocal将用户信息的Session以及每次请求的request保存起来，需要时直接取出来
+    5.自定义后台分页模板
+    6.使用过滤器分别拦截登录请求以及拦截权限控制
+    7.使用递归遍历树形结构
+    8.了解jdk1.8新特性，使用流对集合进行遍历
+    9.自定义校验器，配合校验框架hibernate-validation进行校验
+    10.封装JsonMapper通用工具类，将对象和Json字符串进行相互转换
+    11.使用MD5对用户的密码进行加密处理
+    12.创建Redis连接池对redis的创建和安全关闭进行管理
+    13.使用PageQuery封装分页常用参数，PageResult返回数据
+    14.了解PO、DTO的用法
+        
